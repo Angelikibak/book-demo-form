@@ -1,5 +1,6 @@
 import React from 'react';
 import  Header  from './components/Header';
+import Form from './components/Form';
 
 function App() {
   return (
@@ -7,9 +8,9 @@ function App() {
       <Header />
       <header className="App-header">
        
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+       
+          <Form />
+
         <a
           className="App-link"
           href="https://reactjs.org"

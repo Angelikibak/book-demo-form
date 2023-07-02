@@ -28,7 +28,6 @@ const DropdownMenu = styled.ul`
   color: #000000;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 60px;
   `
 
 const DropdownMenuItem = styled.li`
@@ -79,6 +78,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange }) => {
     <DropdownContainer>
       <DropdownButton onClick={toggleDropdown}>
         {value.flag && <img src={value.flag} alt="Flag" />}
+        { value.code ? <span>{value.code}</span> : null }
         <DownArrowIcon>
           <ArrowIcon />
         </DownArrowIcon>
@@ -92,7 +92,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange }) => {
             >
               {option.flag && <img src={option.flag} alt="Flag" />}
               <span>{option.label}</span>
-              <span>{option.code}</span>
+              <span>{ option.code ? <span>{option.code}</span> : null }</span>
             </DropdownMenuItem>
           ))}
         </DropdownMenu>
