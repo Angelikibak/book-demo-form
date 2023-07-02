@@ -2,6 +2,8 @@ import React, {ChangeEvent} from 'react';
 import styled from 'styled-components';
 import Logo from '../../images/Logo.svg';
 import Dropdown, { Option } from '../Dropdown';
+import UkFlag from '../../images/En-Flag.svg';
+import DeFlag from '../../images/De-Flag.svg';
 
 const StyledHeader = styled.header`
     display: fixed;
@@ -23,21 +25,34 @@ const StyledSelect = styled.select`
 
 const Header : React.FC = () => {
 
-    const [selectedLanguage, setSelectedLanguage] = React.useState('en');
-
-    const languageOptions: Option[] = [
-        { value: 'English', flag: '🇬🇧' },
-        { value: 'German',  flag: '🇩🇪' },
+    const [selectedLanguage, setSelectedLanguage] = React.useState<Option>({
+        value: 'English',
+        flag: UkFlag,
+        label: 'English',
+        code: 'EN',
+      });
+    
+      const languageOptions: Option[] = [
+        {
+          value: 'English',
+          flag: UkFlag,
+          label: 'EN',
+        },
+        {
+          value: 'German',
+          flag: DeFlag,
+          label: 'DE',
+        },
       ];
 
-    const handleLanguageChange = (value: string) => {
+    const handleLanguageChange = (value: Option) => {
     setSelectedLanguage(value);
     };
 
     return (
         <StyledHeader>
             <HeaderContainer>
-            <img src={Logo} className="App-logo" alt="logo" />
+            <img src={Logo} alt="logo" />
             <Dropdown options={languageOptions} value={selectedLanguage} onChange={handleLanguageChange} />
             </HeaderContainer>
         </StyledHeader>
