@@ -22,7 +22,6 @@ module.exports = {
       'prettier',
     ],
     rules: {
-      // Add your custom rules here
     },
   };
   

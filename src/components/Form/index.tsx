@@ -1,9 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import styled from 'styled-components';
-import InputMask from 'react-input-mask';
-import Dropdown, { Option } from '../Dropdown';
+import { Option } from '../Dropdown';
 import UkFlag from '../../images/En-Flag.svg';
-import DeFlag from '../../images/De-Flag.svg';
 import PhoneInput from './PhoneInput';
 import { languageOptions } from '../../data/languageOptions';
 
@@ -46,6 +44,11 @@ const FormTopFields = styled.div`
     gap: 10px;
 `;
 
+const ErrorMessage = styled.span`
+  color: red;
+  font-size: 12px;
+`;
+
 const FormComponent = () => {
     const [selectedLanguage, setSelectedLanguage] = React.useState<Option>({
         value: 'English',
@@ -68,6 +71,8 @@ const FormComponent = () => {
         firstName: '',
         lastName: '',
         phoneNumber: '',
+        email: '',
+        company: '',
     });
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -82,13 +87,19 @@ const FormComponent = () => {
         event.preventDefault();
         
         console.log('Form data submitted:', formData);
-        
+
         setFormData({
             firstName: '',
             lastName: '',
             phoneNumber: '',
+            email: '',
+            company: '',
         });
     };
+
+    const validateEmail = (email: string) => {
+        return email.includes('@');
+      };
 
     return (
         <FormLayout onSubmit={handleSubmit}>
@@ -123,6 +134,30 @@ const FormComponent = () => {
             selectedLanguage={selectedLanguage}
             handleLanguageChange={handleLanguageChange}
         />
+        <FormField>
+        <label htmlFor="email">Email:</label>
+        <Input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        {!validateEmail(formData.email) && (
+          <ErrorMessage>Please enter a valid email address.</ErrorMessage>
+        )}
+      </FormField>
+      <FormField>
+        <label htmlFor="company">Company Name:</label>
+        <Input
+        type="text"
+        id="company"
+        name="company"
+        value={formData.company}
+        onChange={handleChange}
+        />
+    </FormField>  
         <button type="submit">Submit</button>
 
         </FormLayout>
