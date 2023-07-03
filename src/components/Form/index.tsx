@@ -49,7 +49,7 @@ const FormTopFields = styled.div`
     gap: 10px;
 `;
 
-const ErrorMessage = styled.span`
+export const ErrorMessage = styled.span`
   color: red;
   font-size: 12px;
 `;
@@ -88,6 +88,16 @@ const FormComponent = () => {
         phoneNumber: '',
         email: '',
         company: '',
+        privacyPolicy: ''
+    });
+
+    const [errors, setErrors] = useState({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phoneNumber: '',
+      company: '',
+      privacyPolicy: ''
     });
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -99,18 +109,72 @@ const FormComponent = () => {
     };
 
     const handleSubmit = (event: FormEvent) => {
-        event.preventDefault();
-        
-        console.log('Form data submitted:', formData);
+      event.preventDefault();
+    
+      let formValid = true;
+      const newErrors = { ...errors };
+    
+      if (formData.firstName.trim() === '') {
+        newErrors.firstName = 'Please fill in this field';
+        formValid = false;
+      } else {
+        newErrors.firstName = '';
+      }
+    
+      if (formData.lastName.trim() === '') {
+        newErrors.lastName = 'Please fill in this field';
+        formValid = false;
+      } else {
+        newErrors.lastName = '';
+      }
 
+      if (formData.privacyPolicy.trim() === '') {
+        newErrors.privacyPolicy = 'You have to accept the privacy policy';
+        formValid = false;
+      } else {
+        newErrors.privacyPolicy = '';
+      }
+
+      if (formData.company.trim() === '') {
+        newErrors.company = 'Please fill in this field';
+        formValid = false;
+      } else {
+        newErrors.firstName = '';
+      }
+    
+      if (formData.email.trim() === '') {
+        newErrors.email = 'Please fill in this field';
+        formValid = false;
+      } else if (!validateEmail(formData.email)) {
+        newErrors.email = 'Please enter a valid email address';
+        formValid = false;
+      } else {
+        newErrors.email = '';
+      }
+
+      if (formData.phoneNumber.trim() === '') {
+        newErrors.phoneNumber = 'Please fill in this field';
+        formValid = false;
+      } else {
+        newErrors.phoneNumber = '';
+      }
+    
+      setErrors(newErrors);
+    
+      if (formValid) {
+        console.log('Form data submitted:', formData);
+    
         setFormData({
-            firstName: '',
-            lastName: '',
-            phoneNumber: '',
-            email: '',
-            company: '',
+          firstName: '',
+          lastName: '',
+          phoneNumber: '',
+          email: '',
+          company: '',
+          privacyPolicy: ''
         });
+      }
     };
+    
 
     const validateEmail = (email: string) => {
         return email.includes('@');
@@ -119,9 +183,11 @@ const FormComponent = () => {
     const handlePrivacyPolicyChange = () => {
       setAcceptPrivacyPolicy(!acceptPrivacyPolicy);
     };
+
+    const phoneNumberError = errors.phoneNumber;
   
     return (
-        <FormLayout onSubmit={handleSubmit}>
+        <FormLayout onSubmit={handleSubmit} noValidate>
             <FormTopFields>
               <FormField>
                   <label htmlFor="firstName">First Name:</label>
@@ -133,6 +199,7 @@ const FormComponent = () => {
                   onChange={handleChange}
                   required
                   />
+                  {errors.firstName && <ErrorMessage>{errors.firstName}</ErrorMessage>}
               </FormField>
               <FormField>
                   <label htmlFor="lastName">Last Name:</label>
@@ -144,6 +211,7 @@ const FormComponent = () => {
                   onChange={handleChange}
                   required
                   />
+                  {errors.lastName && <ErrorMessage>{errors.lastName}</ErrorMessage>}
               </FormField>
             </FormTopFields>
             <PhoneInput
@@ -152,6 +220,7 @@ const FormComponent = () => {
                 languageOptions={modifiedOptions}
                 selectedLanguage={selectedLanguage}
                 handleLanguageChange={handleLanguageChange}
+                phoneNumberError={phoneNumberError}
             />
             <FormField>
             <label htmlFor="email">Email:</label>
@@ -163,7 +232,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
             />
-            {!validateEmail(formData.email) && (
+            {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+            {!errors.email && !validateEmail(formData.email) && (
               <ErrorMessage>Please enter a valid email address.</ErrorMessage>
             )}
           </FormField>
@@ -176,6 +246,7 @@ const FormComponent = () => {
             value={formData.company}
             onChange={handleChange}
             />
+            {errors.company && <ErrorMessage>{errors.company}</ErrorMessage>}
           </FormField>
           <EmployeeControl />
           <CheckboxContainer>
@@ -186,6 +257,7 @@ const FormComponent = () => {
               />
               <label htmlFor="privacyPolicy">Accept the Moss <a href="https://getmoss.com/public/terms-and-conditions/20220815_Privacy_Policy_of_Nufin_GmbH.pdf?utm_campaign=brand-de&utm_source=google&utm_medium=paidsearch&utm_content=search-ad&utm_term=get%20moss">Privacy Policy</a></label>
           </CheckboxContainer>
+          {errors.privacyPolicy && <ErrorMessage>{errors.privacyPolicy}</ErrorMessage>}
           <InvitationCodeControl/>
             <button type="submit">Submit</button>
 

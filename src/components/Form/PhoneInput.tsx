@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Dropdown, { Option } from '../Dropdown';
 import InputMask from 'react-input-mask';
+import { ErrorMessage } from './index';
 
 const FormField = styled.div`
   margin-bottom: 10px;
@@ -31,6 +32,7 @@ interface PhoneInputProps {
   languageOptions: Option[];
   selectedLanguage: Option;
   handleLanguageChange: (option: Option) => void;
+  phoneNumberError: string;
 }
 
 const PhoneInput: React.FC<PhoneInputProps> = ({
@@ -39,6 +41,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
   languageOptions,
   selectedLanguage,
   handleLanguageChange,
+  phoneNumberError
 }) => {
   
   return (
@@ -57,6 +60,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
         required
       />
       </PhoneInputContainer>
+      {phoneNumberError && <ErrorMessage>{phoneNumberError}</ErrorMessage>}
     </FormField>
   );
 };
