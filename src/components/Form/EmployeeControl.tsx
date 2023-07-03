@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const ControlContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const Label = styled.label`
@@ -31,6 +32,8 @@ const Option = styled.div<{ selected: boolean }>`
   padding: 8px;
   cursor: pointer;
   border-radius: 8px;
+  text-align: center;
+  width: 20%;
 `;
 
 const VerticalLine = styled.div`

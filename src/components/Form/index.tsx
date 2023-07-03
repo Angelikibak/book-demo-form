@@ -12,20 +12,25 @@ const FormLayout = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 10px;
+  gap: 16px;
 `;
 
 const FormField = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 export const Input = styled.input`
   border-radius: 8px;
   border: 1px solid #DCDBDA;
   background: #FFF;
-  padding: 5px;
+  padding: 15px;
   margin-top: 5px;
+
+  &:hover {
+    bog-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -35,8 +40,6 @@ const SubmitButton = styled.button`
   padding: 10px 20px;
   margin-top: 10px;
 `;
-
-
 
 const FormTopFields = styled.div`
     display: flex;
@@ -120,73 +123,73 @@ const FormComponent = () => {
     return (
         <FormLayout onSubmit={handleSubmit}>
             <FormTopFields>
-        <FormField>
-            <label htmlFor="firstName">First Name:</label>
+              <FormField>
+                  <label htmlFor="firstName">First Name:</label>
+                  <Input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  required
+                  />
+              </FormField>
+              <FormField>
+                  <label htmlFor="lastName">Last Name:</label>
+                  <Input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  required
+                  />
+              </FormField>
+            </FormTopFields>
+            <PhoneInput
+                formData={formData}
+                handleChange={handleChange}
+                languageOptions={modifiedOptions}
+                selectedLanguage={selectedLanguage}
+                handleLanguageChange={handleLanguageChange}
+            />
+            <FormField>
+            <label htmlFor="email">Email:</label>
+            <Input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            {!validateEmail(formData.email) && (
+              <ErrorMessage>Please enter a valid email address.</ErrorMessage>
+            )}
+          </FormField>
+          <FormField>
+            <label htmlFor="company">Company Name:</label>
             <Input
             type="text"
-            id="firstName"
-            name="firstName"
-            value={formData.firstName}
+            id="company"
+            name="company"
+            value={formData.company}
             onChange={handleChange}
-            required
             />
-        </FormField>
-        <FormField>
-            <label htmlFor="lastName">Last Name:</label>
-            <Input
-            type="text"
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            required
-            />
-        </FormField>
-        </FormTopFields>
-        <PhoneInput
-            formData={formData}
-            handleChange={handleChange}
-            languageOptions={modifiedOptions}
-            selectedLanguage={selectedLanguage}
-            handleLanguageChange={handleLanguageChange}
-        />
-        <FormField>
-        <label htmlFor="email">Email:</label>
-        <Input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        {!validateEmail(formData.email) && (
-          <ErrorMessage>Please enter a valid email address.</ErrorMessage>
-        )}
-      </FormField>
-      <FormField>
-        <label htmlFor="company">Company Name:</label>
-        <Input
-        type="text"
-        id="company"
-        name="company"
-        value={formData.company}
-        onChange={handleChange}
-        />
-      </FormField>
-      <EmployeeControl />
-      <CheckboxContainer>
-      <Checkbox
-          type="checkbox"
-          checked={acceptPrivacyPolicy}
-          onChange={handlePrivacyPolicyChange}
-        />
-        <label htmlFor="privacyPolicy">Accept the Moss <a href="https://getmoss.com/public/terms-and-conditions/20220815_Privacy_Policy_of_Nufin_GmbH.pdf?utm_campaign=brand-de&utm_source=google&utm_medium=paidsearch&utm_content=search-ad&utm_term=get%20moss">Privacy Policy</a></label>
-      </CheckboxContainer>
-      <InvitationCodeControl/>
-        <button type="submit">Submit</button>
+          </FormField>
+          <EmployeeControl />
+          <CheckboxContainer>
+            <Checkbox
+                type="checkbox"
+                checked={acceptPrivacyPolicy}
+                onChange={handlePrivacyPolicyChange}
+              />
+              <label htmlFor="privacyPolicy">Accept the Moss <a href="https://getmoss.com/public/terms-and-conditions/20220815_Privacy_Policy_of_Nufin_GmbH.pdf?utm_campaign=brand-de&utm_source=google&utm_medium=paidsearch&utm_content=search-ad&utm_term=get%20moss">Privacy Policy</a></label>
+          </CheckboxContainer>
+          <InvitationCodeControl/>
+            <button type="submit">Submit</button>
 
-        </FormLayout>
+      </FormLayout>
     );
 };
 
