@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Option } from '../Dropdown';
 import UkFlag from '../../images/En-Flag.svg';
 import PhoneInput from './PhoneInput';
+import EmployeeControl from './EmployeeControl';
+import InvitationCodeControl from './InvitationCodeControl';
 import { languageOptions } from '../../data/languageOptions';
 
 const FormLayout = styled.form`
@@ -18,7 +20,7 @@ const FormField = styled.div`
   flex-direction: column;
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   border-radius: 8px;
   border: 1px solid #DCDBDA;
   background: #FFF;
@@ -49,6 +51,15 @@ const ErrorMessage = styled.span`
   font-size: 12px;
 `;
 
+const CheckboxContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+const Checkbox = styled.input`
+  margin-right: 8px;
+`
+
 const FormComponent = () => {
     const [selectedLanguage, setSelectedLanguage] = React.useState<Option>({
         value: 'English',
@@ -56,6 +67,7 @@ const FormComponent = () => {
         label: 'English',
         code: '+44',
       });
+    const [acceptPrivacyPolicy, setAcceptPrivacyPolicy] = useState(false);
 
     const modifiedOptions = languageOptions.map(option => ({
     value: option.value,
@@ -99,8 +111,12 @@ const FormComponent = () => {
 
     const validateEmail = (email: string) => {
         return email.includes('@');
-      };
+    };
 
+    const handlePrivacyPolicyChange = () => {
+      setAcceptPrivacyPolicy(!acceptPrivacyPolicy);
+    };
+  
     return (
         <FormLayout onSubmit={handleSubmit}>
             <FormTopFields>
@@ -157,7 +173,17 @@ const FormComponent = () => {
         value={formData.company}
         onChange={handleChange}
         />
-    </FormField>  
+      </FormField>
+      <EmployeeControl />
+      <CheckboxContainer>
+      <Checkbox
+          type="checkbox"
+          checked={acceptPrivacyPolicy}
+          onChange={handlePrivacyPolicyChange}
+        />
+        <label htmlFor="privacyPolicy">Accept the Moss <a href="https://getmoss.com/public/terms-and-conditions/20220815_Privacy_Policy_of_Nufin_GmbH.pdf?utm_campaign=brand-de&utm_source=google&utm_medium=paidsearch&utm_content=search-ad&utm_term=get%20moss">Privacy Policy</a></label>
+      </CheckboxContainer>
+      <InvitationCodeControl/>
         <button type="submit">Submit</button>
 
         </FormLayout>
