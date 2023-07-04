@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Logo from '../../images/Logo.svg';
 import Dropdown, { Option } from '../Dropdown';
 import UkFlag from '../../images/En-Flag.svg';
-import DeFlag from '../../images/De-Flag.svg';
 import { languageOptions } from '../../data/languageOptions';
 
 const StyledHeader = styled.header`

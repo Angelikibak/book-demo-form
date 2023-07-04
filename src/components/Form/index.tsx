@@ -33,14 +33,6 @@ export const Input = styled.input`
   }
 `;
 
-const SubmitButton = styled.button`
-  border-radius: 8px;
-  border: 1px solid #DCDBDA;
-  background: #FFF;
-  padding: 10px 20px;
-  margin-top: 10px;
-`;
-
 const FormTopFields = styled.div`
     display: flex;
     flex-direction: row;
