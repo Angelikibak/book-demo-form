@@ -63,7 +63,7 @@ const Checkbox = styled.input`
   margin-right: 8px;
 `
 
-const FormComponent = () => {
+const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
     const [selectedLanguage, setSelectedLanguage] = React.useState<Option>({
         value: 'English',
         flag: UkFlag,
@@ -71,6 +71,8 @@ const FormComponent = () => {
         code: '+44',
       });
     const [acceptPrivacyPolicy, setAcceptPrivacyPolicy] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
 
     const modifiedOptions = languageOptions.map(option => ({
     value: option.value,
@@ -128,7 +130,7 @@ const FormComponent = () => {
         newErrors.lastName = '';
       }
 
-      if (formData.privacyPolicy.trim() === '') {
+      if (!acceptPrivacyPolicy) {
         newErrors.privacyPolicy = 'You have to accept the privacy policy';
         formValid = false;
       } else {
@@ -139,7 +141,7 @@ const FormComponent = () => {
         newErrors.company = 'Please fill in this field';
         formValid = false;
       } else {
-        newErrors.firstName = '';
+        newErrors.company = '';
       }
     
       if (formData.email.trim() === '') {
@@ -162,6 +164,8 @@ const FormComponent = () => {
       setErrors(newErrors);
     
       if (formValid) {
+        onFormFilled();
+        setSubmitted(true);
         console.log('Form data submitted:', formData);
     
         setFormData({
@@ -256,8 +260,9 @@ const FormComponent = () => {
                 onChange={handlePrivacyPolicyChange}
               />
               <label htmlFor="privacyPolicy">Accept the Moss <a href="https://getmoss.com/public/terms-and-conditions/20220815_Privacy_Policy_of_Nufin_GmbH.pdf?utm_campaign=brand-de&utm_source=google&utm_medium=paidsearch&utm_content=search-ad&utm_term=get%20moss">Privacy Policy</a></label>
+              {errors.privacyPolicy && <ErrorMessage>{errors.privacyPolicy}</ErrorMessage>}
           </CheckboxContainer>
-          {errors.privacyPolicy && <ErrorMessage>{errors.privacyPolicy}</ErrorMessage>}
+          
           <InvitationCodeControl/>
             <button type="submit">Submit</button>
 
@@ -265,4 +270,4 @@ const FormComponent = () => {
     );
 };
 
-export default FormComponent;
+export default Form;
