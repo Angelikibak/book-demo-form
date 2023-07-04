@@ -4,6 +4,7 @@ import Form from './components/Form';
 import styled from 'styled-components';
 import Calendly from './components/Calendly';
 import onBoarding from './images/onboarding-image.png';
+import Footer from './components/Footer';
 
 const Container = styled.div`
   display: flex;
@@ -44,22 +45,22 @@ function App() {
   const TitleText = 'Book your free Moss demo';
 
   return (
-      <>
+    <>
       <Header />
       <Container>
-      
-      <FormContainer>
-      <Title>{TitleText}</Title>
-        {submitted ? (
-            <Calendly  formFilled={true} />
-          ) : (
-            <Form onFormFilled= {handleFormFilled} />
-          )}
-      </FormContainer>
-      <ImageContainer>
-        <Image src= {onBoarding} alt='moss-image' />
-      </ImageContainer>
-    </Container>
+        <FormContainer>
+        <Title>{TitleText}</Title>
+          {submitted ? (
+              <Calendly  formFilled={true} />
+            ) : (
+              <Form onFormFilled= {handleFormFilled} />
+            )}
+        </FormContainer>
+        <ImageContainer>
+          <Image src= {onBoarding} alt='moss-image' />
+        </ImageContainer>
+      </Container>
+      <Footer />
     </>
 
   );
