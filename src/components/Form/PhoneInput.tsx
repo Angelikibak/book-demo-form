@@ -13,7 +13,6 @@ const MaskedInput = styled(InputMask)`
   border: 1px solid #DCDBDA;
   background: #FFF;
   padding: 5px;
-  margin-top: 5px;
 `;
 
 const PhoneInputContainer = styled.div`
@@ -22,6 +21,10 @@ const PhoneInputContainer = styled.div`
     justify-content: space-between;
     width: 100%;
     gap: 10px;
+      button {
+        border-radius: 8px;
+        border: 1px solid #DCDBDA;
+      }
 `;
 
 interface PhoneInputProps {

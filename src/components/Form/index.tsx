@@ -282,9 +282,6 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
           {errors.privacyPolicy && <ErrorMessage>{errors.privacyPolicy}</ErrorMessage>}
           <InvitationCodeControl/>
           <Button type="submit">Choose a time</Button>
-
-            
-
       </FormLayout>
     );
 };
