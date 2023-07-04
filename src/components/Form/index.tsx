@@ -12,7 +12,7 @@ const FormLayout = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 16px;
+  gap: 10px;
 `;
 
 const FormField = styled.div`
@@ -62,6 +62,24 @@ const CheckboxContainer = styled.div`
 const Checkbox = styled.input`
   margin-right: 8px;
 `
+const Button = styled.button`
+  border-radius: 8px;
+  border: none;
+  color: #fff;
+  background: #3A5F51;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  height: 40px;
+  align-self: flex-end;
+    &:hover {
+    background: #456E5E;
+    box-shadow: 0px 2px 4px rgba(0,0,0,.02)
+  }
+`;
 
 const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
     const [selectedLanguage, setSelectedLanguage] = React.useState<Option>({
@@ -260,11 +278,12 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
                 onChange={handlePrivacyPolicyChange}
               />
               <label htmlFor="privacyPolicy">Accept the Moss <a href="https://getmoss.com/public/terms-and-conditions/20220815_Privacy_Policy_of_Nufin_GmbH.pdf?utm_campaign=brand-de&utm_source=google&utm_medium=paidsearch&utm_content=search-ad&utm_term=get%20moss">Privacy Policy</a></label>
-              {errors.privacyPolicy && <ErrorMessage>{errors.privacyPolicy}</ErrorMessage>}
           </CheckboxContainer>
-          
+          {errors.privacyPolicy && <ErrorMessage>{errors.privacyPolicy}</ErrorMessage>}
           <InvitationCodeControl/>
-            <button type="submit">Submit</button>
+          <Button type="submit">Choose a time</Button>
+
+            
 
       </FormLayout>
     );
