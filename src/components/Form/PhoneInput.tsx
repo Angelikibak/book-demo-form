@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Dropdown, { Option } from '../Dropdown';
 import InputMask from 'react-input-mask';
 import { ErrorMessage } from './index';
+import { Label } from './index';
 
 const FormField = styled.div`
   margin-bottom: 10px;
@@ -45,7 +46,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
   
   return (
     <FormField>
-      <label htmlFor="phoneNumber">Mobile Phone:</label>
+      <Label htmlFor="phoneNumber">Mobile Phone Number</Label>
       <PhoneInputContainer>
       <Dropdown options={languageOptions} selected={selectedLanguage} onChange={handleLanguageChange} />
       <MaskedInput

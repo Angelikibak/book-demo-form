@@ -2,8 +2,6 @@ import React, { useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Logo from '../../images/Logo.svg';
 import Dropdown, { Option } from '../Dropdown';
-import UkFlag from '../../images/En-Flag.svg';
-import { languageOptions } from '../../data/languageOptions';
 import { getCountries } from '../../service/Country/Country';
 import { getCountrySelection } from '../../transform/Country';
 
@@ -19,6 +17,9 @@ const HeaderContainer = styled.div`
     justify-content: space-between;
     margin: 0 80px;
     padding: 12px 0;
+      div {
+        border: none;
+      }
     `
 const Header : React.FC = () => {
 
@@ -42,12 +43,12 @@ const Header : React.FC = () => {
     return (
         <StyledHeader>
             <HeaderContainer>
-            <img src={Logo} alt="logo" />
-            <Dropdown 
-              options={countries}
-              selected={selectedLanguage}
-              onChange={handleLanguageChange} 
-              />
+              <img src={Logo} alt="logo" />
+              <Dropdown 
+                options={countries}
+                selected={selectedLanguage}
+                onChange={handleLanguageChange} 
+                />
             </HeaderContainer>
         </StyledHeader>
     );

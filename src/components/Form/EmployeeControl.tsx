@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Label } from '../Form';
 
 const ControlContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-`;
-
-const Label = styled.label`
-  margin-bottom: 8px;
 `;
 
 const OptionsContainer = styled.div`

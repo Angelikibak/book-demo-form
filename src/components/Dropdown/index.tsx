@@ -8,7 +8,7 @@ const DropdownContainer = styled.div`
   border: 1px solid #dcdbda;
   border-radius: 8px;
   padding: 4px;
-`;
+`
 
 const DropdownButton = styled.button`
   display: flex;
@@ -19,7 +19,7 @@ const DropdownButton = styled.button`
   cursor: pointer;
   width: 100%;
   justify-content: space-between;
-`;
+`
 
 const DropdownMenu = styled.ul`
   position: absolute;
@@ -33,10 +33,8 @@ const DropdownMenu = styled.ul`
   color: #000000;
   border: 1px solid #ccc;
   border-radius: 4px;
-  max-height: 230px;
   overflow: auto;
-  min-width: 100%;
-`;
+`
 
 const DropdownMenuItem = styled.li`
   padding: 6px;
@@ -48,22 +46,22 @@ const DropdownMenuItem = styled.li`
   span {
     margin: 0 1px 1px 0;
   }
-`;
+`
 
 const DownArrowIcon = styled.span`
   margin-left: 8px;
-`;
+`
 
 const DropdownImage = styled.img`
   width: 20px;
   height: 20px;
   margin-right: 8px;
-`;
+`
 
 const DropdownSelectedContainer = styled.div`
   display: flex;
   align-items: center;
-`;
+`
 
 export interface Option {
   name?: string;

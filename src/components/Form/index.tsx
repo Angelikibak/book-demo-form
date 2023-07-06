@@ -1,11 +1,9 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent  } from 'react';
 import styled from 'styled-components';
 import Dropdown, { Option } from '../Dropdown';
-import UkFlag from '../../images/En-Flag.svg';
 import PhoneInput from './PhoneInput';
 import EmployeeControl from './EmployeeControl';
 import InvitationCodeControl from './InvitationCodeControl';
-import { languageOptions } from '../../data/languageOptions';
 import { getCountries } from '../../service/Country/Country'
 import { phoneCountryTrans, getCountryNames } from '../../transform/Country';
 
@@ -15,13 +13,13 @@ const FormLayout = styled.form`
   justify-content: center;
   align-items: flex-start;
   gap: 10px;
-`;
+`
 
 const FormField = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-`;
+`
 
 export const Input = styled.input`
   border-radius: 8px;
@@ -33,7 +31,7 @@ export const Input = styled.input`
   &:hover {
     bog-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   }
-`;
+`
 
 const FormTopFields = styled.div`
     display: flex;
@@ -41,12 +39,12 @@ const FormTopFields = styled.div`
     justify-content: space-between;
     width: 100%;
     gap: 10px;
-`;
+`
 
 export const ErrorMessage = styled.span`
   color: red;
   font-size: 12px;
-`;
+`
 
 const CheckboxContainer = styled.div`
   display: flex;
@@ -73,16 +71,24 @@ const Button = styled.button`
     background: #456E5E;
     box-shadow: 0px 2px 4px rgba(0,0,0,.02)
   }
-`;
+`
+
+export const Label = styled.label`
+  font-size: 12px;
+  color: #72716E;
+`
+
+export const CheckboxLabel = styled.label`
+  font-size: 12px;
+  color: #000;
+  padding-top: 3px;
+`
 
 const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
-    const [selectedLanguage, setSelectedLanguage] = useState<Option>({
-    });
+    const [selectedLanguage, setSelectedLanguage] = useState<Option>({});
     const [acceptPrivacyPolicy, setAcceptPrivacyPolicy] = useState(false);
-    const [modifiedOptions, setModifiedOptions] = useState<Option[]>([{
-    }]);
-    const [incorporationCountry, setIncorporationCountry] = useState<Option>({
-    });
+    const [modifiedOptions, setModifiedOptions] = useState<Option[]>([{}]);
+    const [incorporationCountry, setIncorporationCountry] = useState<Option>({});
     const [countries, setCountries] = useState([]);
     const [submitted, setSubmitted] = useState(false);
 
@@ -226,7 +232,7 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
         <FormLayout onSubmit={handleSubmit} noValidate>
             <FormTopFields>
               <FormField>
-                  <label htmlFor="firstName">First Name:</label>
+                  <Label htmlFor="firstName">First Name</Label>
                   <Input
                   type="text"
                   id="firstName"
@@ -238,7 +244,7 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
                   {errors.firstName && <ErrorMessage>{errors.firstName}</ErrorMessage>}
               </FormField>
               <FormField>
-                  <label htmlFor="lastName">Last Name:</label>
+                  <Label htmlFor="lastName">Last Name</Label>
                   <Input
                   type="text"
                   id="lastName"
@@ -259,7 +265,7 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
                 phoneNumberError={phoneNumberError}
             />
             <FormField>
-            <label htmlFor="email">Email:</label>
+            <Label htmlFor="email">Your work email</Label>
             <Input
               type="email"
               id="email"
@@ -274,7 +280,7 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
             )}
           </FormField>
           <FormField>
-            <label htmlFor="company">Company Name:</label>
+            <Label htmlFor="company">Company Name</Label>
             <Input
             type="text"
             id="company"
@@ -284,14 +290,11 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
             />
             {errors.company && <ErrorMessage>{errors.company}</ErrorMessage>}
           </FormField>
-
-
           <FormField>
-            <label htmlFor="company">Select a country:</label>
+            <Label htmlFor="country">Select a country:</Label>
             <Dropdown options={countries} selected={incorporationCountry} onChange={handleCountryChange} />
             {errors.country && <ErrorMessage>{errors.country}</ErrorMessage>}
           </FormField>
-
           <EmployeeControl />
           <CheckboxContainer>
             <Checkbox
@@ -299,7 +302,7 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
                 checked={acceptPrivacyPolicy}
                 onChange={handlePrivacyPolicyChange}
               />
-              <label htmlFor="privacyPolicy">Accept the Moss <a href="https://getmoss.com/public/terms-and-conditions/20220815_Privacy_Policy_of_Nufin_GmbH.pdf?utm_campaign=brand-de&utm_source=google&utm_medium=paidsearch&utm_content=search-ad&utm_term=get%20moss">Privacy Policy</a></label>
+              <CheckboxLabel htmlFor="privacyPolicy">Accept the Moss <a href="https://getmoss.com/public/terms-and-conditions/20220815_Privacy_Policy_of_Nufin_GmbH.pdf?utm_campaign=brand-de&utm_source=google&utm_medium=paidsearch&utm_content=search-ad&utm_term=get%20moss">Privacy Policy</a></CheckboxLabel>
           </CheckboxContainer>
           {errors.privacyPolicy && <ErrorMessage>{errors.privacyPolicy}</ErrorMessage>}
           <InvitationCodeControl/>

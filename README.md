@@ -1,46 +1,54 @@
-# Getting Started with Create React App
+# Moss Demo Booking
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Moss Demo Booking project! This project provides a web application that allows users to book a free demo of the Moss software. Users can fill out a form with their details and schedule a demo appointment.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User-friendly form for capturing user information
+- Real-time validation for form fields
+- Privacy policy acceptance checkbox
+- Integration with Calendly for scheduling demo appointments
+- Fetching countries data from the REST Countries API
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- React: JavaScript library for building user interfaces
+- Create React App: Tool for bootstrapping React applications
+- Styled Components: CSS-in-JS library for styling components
+- Calendly: Online appointment scheduling integration
+- REST Countries API: External API for fetching countries data
+- TypeScript: Typed superset of JavaScript
+- Axios: Promise-based HTTP client for making API requests
+- ESLint: JavaScript linter for identifying and reporting code issues
+- Prettier: Opinionated code formatter for consistent code style
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+To get started with the Moss Demo Booking project, follow these steps:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository: `git clone <https://github.com/Angelikibak/book-demo-form>`
+2. Install the dependencies: `npm install`
+3. Start the development server: `npm start`
+4. Access the application in your browser at: `http://localhost:3000`
 
-### `npm run build`
+## Fetching Countries Data
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The project fetches data about countries from the REST Countries API. This data is used to populate a select dropdown in the form, allowing users to select their country of residence. The API is called using Axios, a promise-based HTTP client, to retrieve the country data.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## TypeScript
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The Moss Demo Booking project is built using TypeScript, a typed superset of JavaScript. TypeScript provides static type checking and enhances the developer experience by enabling better code organization, improved tooling, and early error detection. The project includes type definitions for the components, functions, and API responses.
 
-### `npm run eject`
+## Code Quality Tools
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The project utilizes ESLint and Prettier for maintaining code quality and consistency.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- ESLint is a JavaScript linter that helps identify and report code issues. It enforces coding conventions, detects potential errors, and encourages best practices. The ESLint configuration for the project can be found in the `.eslintrc.json` file.
+- Prettier is an opinionated code formatter that ensures consistent code style across the project. It automatically formats the code based on a set of predefined rules. The Prettier configuration for the project can be found in the `.prettierrc` file.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Hosting on Netlify
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The Moss Demo Booking project is hosted on Netlify, a cloud platform for hosting web applications. The deployment process is automated using Netlify's continuous deployment feature. Every time you push changes to the `main` branch of the repository, Netlify automatically builds and deploys the updated version of the application.
 
-## Learn More
+You can access the hosted project at: [https://your-netlify-project-url.com](https://your-netlify-project-url.com)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Input } from './index';
+import { Input, CheckboxLabel } from './index';
 
 const ControlContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 16px;
-`;
-
-const Label = styled.label`
-  margin-right: 16px;
-`;
+`
 
 const RadioButton = styled.input`
   margin-right: 8px;
-`;
+`
 
 
 const InvitationCodeControl = () => {
@@ -32,14 +28,14 @@ const InvitationCodeControl = () => {
 
   return (
     <ControlContainer>
-      <Label>
+      <CheckboxLabel>
         <RadioButton
           type="checkbox"
           checked={showInvitationCodeInput}
           onChange={handleRadioButtonChange}
         />
         I have an invitation code
-      </Label>
+      </CheckboxLabel>
       {showInvitationCodeInput && (
         <Input
           value={invitationCode}
