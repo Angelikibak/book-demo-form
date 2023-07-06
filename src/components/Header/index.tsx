@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Logo from '../../images/Logo.svg';
 import Dropdown, { Option } from '../Dropdown';
 import UkFlag from '../../images/En-Flag.svg';
 import { languageOptions } from '../../data/languageOptions';
+import { getCountries } from '../../service/Country/Country';
+import { getCountrySelection } from '../../transform/Country';
 
 const StyledHeader = styled.header`
     display: fixed;
@@ -20,27 +22,32 @@ const HeaderContainer = styled.div`
     `
 const Header : React.FC = () => {
 
-    const [selectedLanguage, setSelectedLanguage] = React.useState<Option>({
-        value: 'English',
-        flag: UkFlag,
-        label: 'option',
-      });
+  const [selectedLanguage, setSelectedLanguage] = useState<Option>({});
+  const [countries, setCountries] = useState([]);
 
-    const modifiedOptions = languageOptions.map(option => ({
-      value: option.value,
-      label: option.label,
-      flag: option.flag,
-    }));
+  const fetchCountries = async () => {
+    const data = await getCountries();
+    const dataTrans = await getCountrySelection(data);
+    setCountries(dataTrans);
+    setSelectedLanguage(dataTrans[0]);
+  };
 
-    const handleLanguageChange = (value: Option) => {
+  useEffect(() => {
+    fetchCountries();
+  }, []);
+
+  const handleLanguageChange = (value: Option) => {
     setSelectedLanguage(value);
-    };
-
+  };
     return (
         <StyledHeader>
             <HeaderContainer>
             <img src={Logo} alt="logo" />
-            <Dropdown options={modifiedOptions} value={selectedLanguage} onChange={handleLanguageChange} />
+            <Dropdown 
+              options={countries}
+              selected={selectedLanguage}
+              onChange={handleLanguageChange} 
+              />
             </HeaderContainer>
         </StyledHeader>
     );

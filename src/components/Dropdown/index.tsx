@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { ReactComponent as ArrowIcon } from "../../images/Arrow.svg"; 
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { ReactComponent as ArrowIcon } from '../../images/Arrow.svg';
 
 const DropdownContainer = styled.div`
   position: relative;
   display: inline-block;
+  border: 1px solid #dcdbda;
+  border-radius: 8px;
+  padding: 4px;
 `;
 
 const DropdownButton = styled.button`
@@ -14,6 +17,8 @@ const DropdownButton = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
+  width: 100%;
+  justify-content: space-between;
 `;
 
 const DropdownMenu = styled.ul`
@@ -28,39 +33,56 @@ const DropdownMenu = styled.ul`
   color: #000000;
   border: 1px solid #ccc;
   border-radius: 4px;
-  `
+  max-height: 230px;
+  overflow: auto;
+  min-width: 100%;
+`;
 
 const DropdownMenuItem = styled.li`
   padding: 6px;
   cursor: pointer;
   display: flex;
-  justify-content: space-around;
   &:hover {
     background-color: #f0f0f0;
   }
   span {
     margin: 0 1px 1px 0;
-    }
+  }
 `;
 
 const DownArrowIcon = styled.span`
   margin-left: 8px;
 `;
 
+const DropdownImage = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+`;
+
+const DropdownSelectedContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export interface Option {
+  name?: string;
   value?: string;
-  label?: string;
+  imgSrc?: string;
   code?: string;
-  flag?: string;
 }
 
 interface DropdownProps {
   options: Option[];
-  value: Option;
+  selected: Option;
   onChange: (value: Option) => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange }) => {
+const Dropdown: React.FC<DropdownProps> = ({
+  options,
+  selected,
+  onChange,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleValueChange = (option: Option) => {
@@ -72,27 +94,33 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange }) => {
     setIsOpen(!isOpen);
   };
 
-  const filteredOptions = options.filter((option) => option.value !== value.value);
-
   return (
     <DropdownContainer>
       <DropdownButton onClick={toggleDropdown}>
-        {value.flag && <img src={value.flag} alt="Flag" />}
-        { value.code ? <span>{value.code}</span> : null }
+        <DropdownSelectedContainer>
+          {selected?.imgSrc && (
+            <DropdownImage src={selected.imgSrc} alt="Flag" />
+          )}
+          {selected?.name ? <span>{selected.name}</span> : null}
+          {selected?.code ? <span>{selected.code}</span> : null}
+        </DropdownSelectedContainer>
+
         <DownArrowIcon>
           <ArrowIcon />
         </DownArrowIcon>
       </DropdownButton>
       {isOpen && (
         <DropdownMenu>
-          {filteredOptions.map((option) => (
+          {options.map((option) => (
             <DropdownMenuItem
               key={option.value}
               onClick={() => handleValueChange(option)}
             >
-              {option.flag && <img src={option.flag} alt="Flag" />}
-              <span>{option.label}</span>
-              <span>{ option.code ? <span>{option.code}</span> : null }</span>
+              {option.imgSrc && (
+                <DropdownImage src={option.imgSrc} alt="Flag" />
+              )}
+              {option.name && <span>{option.name}</span>}
+              {option.code && <span>{option.code}</span>}
             </DropdownMenuItem>
           ))}
         </DropdownMenu>

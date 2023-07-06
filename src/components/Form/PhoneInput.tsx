@@ -21,10 +21,6 @@ const PhoneInputContainer = styled.div`
     justify-content: space-between;
     width: 100%;
     gap: 10px;
-      button {
-        border-radius: 8px;
-        border: 1px solid #DCDBDA;
-      }
 `;
 
 interface PhoneInputProps {
@@ -51,7 +47,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
     <FormField>
       <label htmlFor="phoneNumber">Mobile Phone:</label>
       <PhoneInputContainer>
-      <Dropdown options={languageOptions} value={selectedLanguage} onChange={handleLanguageChange} />
+      <Dropdown options={languageOptions} selected={selectedLanguage} onChange={handleLanguageChange} />
       <MaskedInput
         mask="(999) 999-9999"
         type="tel"

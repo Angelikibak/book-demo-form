@@ -1,11 +1,13 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent  } from 'react';
 import styled from 'styled-components';
-import { Option } from '../Dropdown';
+import Dropdown, { Option } from '../Dropdown';
 import UkFlag from '../../images/En-Flag.svg';
 import PhoneInput from './PhoneInput';
 import EmployeeControl from './EmployeeControl';
 import InvitationCodeControl from './InvitationCodeControl';
 import { languageOptions } from '../../data/languageOptions';
+import { getCountries } from '../../service/Country/Country'
+import { phoneCountryTrans, getCountryNames } from '../../transform/Country';
 
 const FormLayout = styled.form`
   display: flex;
@@ -74,25 +76,24 @@ const Button = styled.button`
 `;
 
 const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
-    const [selectedLanguage, setSelectedLanguage] = React.useState<Option>({
-        value: 'English',
-        flag: UkFlag,
-        label: 'English',
-        code: '+44',
-      });
+    const [selectedLanguage, setSelectedLanguage] = useState<Option>({
+    });
     const [acceptPrivacyPolicy, setAcceptPrivacyPolicy] = useState(false);
+    const [modifiedOptions, setModifiedOptions] = useState<Option[]>([{
+    }]);
+    const [incorporationCountry, setIncorporationCountry] = useState<Option>({
+    });
+    const [countries, setCountries] = useState([]);
     const [submitted, setSubmitted] = useState(false);
 
-
-    const modifiedOptions = languageOptions.map(option => ({
-    value: option.value,
-    code: option.code,
-    flag: option.flag,
-    }));
 
     const handleLanguageChange = (value: Option) => {
     setSelectedLanguage(value);
     };
+
+    const handleCountryChange = (value: Option) => {
+      setIncorporationCountry(value)
+    }
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -109,7 +110,8 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
       email: '',
       phoneNumber: '',
       company: '',
-      privacyPolicy: ''
+      privacyPolicy: '',
+      country: ''
     });
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -176,7 +178,7 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
       if (formValid) {
         onFormFilled();
         setSubmitted(true);
-        console.log('Form data submitted:', formData);
+        console.log('Form data submitted:', formData, submitted);
     
         setFormData({
           firstName: '',
@@ -199,7 +201,27 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
     };
 
     const phoneNumberError = errors.phoneNumber;
-  
+
+
+    const fetchCountries = async () => {
+      const data =  await getCountries();
+
+      // Phone Number Field
+      const phoneDataTrans = phoneCountryTrans(data)
+      setModifiedOptions(phoneDataTrans)
+      setSelectedLanguage(phoneDataTrans[0])
+
+      // Country Field
+      const countryNames = getCountryNames(data)
+      setIncorporationCountry(countryNames[0])
+      setCountries(countryNames)
+    }
+
+    useEffect(() => {
+      fetchCountries()
+    }, [])
+
+
     return (
         <FormLayout onSubmit={handleSubmit} noValidate>
             <FormTopFields>
@@ -262,6 +284,14 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
             />
             {errors.company && <ErrorMessage>{errors.company}</ErrorMessage>}
           </FormField>
+
+
+          <FormField>
+            <label htmlFor="company">Select a country:</label>
+            <Dropdown options={countries} selected={incorporationCountry} onChange={handleCountryChange} />
+            {errors.country && <ErrorMessage>{errors.country}</ErrorMessage>}
+          </FormField>
+
           <EmployeeControl />
           <CheckboxContainer>
             <Checkbox
@@ -279,3 +309,4 @@ const Form = ({ onFormFilled }: { onFormFilled: () => void }) => {
 };
 
 export default Form;
+
