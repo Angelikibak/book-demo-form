@@ -50,5 +50,4 @@ The project utilizes ESLint and Prettier for maintaining code quality and consis
 
 The Moss Demo Booking project is hosted on Netlify, a cloud platform for hosting web applications. The deployment process is automated using Netlify's continuous deployment feature. Every time you push changes to the `main` branch of the repository, Netlify automatically builds and deploys the updated version of the application.
 
-You can access the hosted project at: [https://your-netlify-project-url.com](https://your-netlify-project-url.com)
-
+You can access the hosted project at: [https://cosmic-cannoli-fedacc.netlify.app/](https://cosmic-cannoli-fedacc.netlify.app/)
